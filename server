@@ -1,0 +1,17 @@
+[SERVER]
+server ansible_host="192.168.0.1" backups="/Backups/{{ ansible_hostname }}"
+
+[secure]
+server
+
+[trading]
+server
+
+[roq_influxdb]
+server
+
+[roq_coinbase_pro]
+server
+
+[roq_deribit]
+server

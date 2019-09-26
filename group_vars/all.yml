@@ -1,0 +1,8 @@
+---
+postgres:
+  port: 5432
+  user: "postgres"
+  password: "admin"
+  docker:
+    name: "postgres"
+    tag: "10"
