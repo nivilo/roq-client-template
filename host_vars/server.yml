@@ -29,8 +29,9 @@ roq_conda_channel: "unstable"
 roq_deribit:
   version: "{{ roq_version }}"
   name: "deribit"
-  cpu:
-    affinity: 1-2
+  cpu_affinity:
+    dispatcher: 1  # busy poll on cpu #1
+    network: 6  # epoll on cpu #6
   options: {}
   logging:
     verbosity: 0
@@ -63,8 +64,9 @@ roq_deribit:
 roq_coinbase_pro:
   version: "{{ roq_version }}"
   name: "coinbase-pro"
-  cpu:
-    affinity: 4-5
+  cpu_affinity:
+    dispatcher: 2  # busy poll on cpu #2
+    network: 6  # epoll on cpu #6
   options: {}
   logging:
     verbosity: 0
