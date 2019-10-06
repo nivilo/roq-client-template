@@ -29,16 +29,23 @@ roq_conda_channel: "unstable"
 roq_deribit:
   version: "{{ roq_version }}"
   name: "deribit"
+  logging:
+    verbosity: 0
   cpu_affinity:
     dispatcher: 1  # busy poll on cpu #1
     network: 6  # epoll on cpu #6
   collect:
-    size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
-  options: {}
-  logging:
-    verbosity: 0
+    file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
+  options:
+    reconnect_secs: 1
+    ping_freq_secs: 10
+    cancel_on_disconnect: true
   net:
     fix: "tcp://test.deribit.com:9881"
+  symbols:
+    - ".*-PERPETUAL"
+    - ".*-DERIBIT-INDEX"
+    - .*-\\d{2}\\D{3}\\d{2}
   accounts:
     "A1":
       login: "YOUR_DERIBIT_LOGIN_GOES_HERE"
@@ -54,7 +61,7 @@ roq_deribit:
     trader:
       password: "secret"
       accounts: "A1"
-      symbols: "BTC-\\\\d{2}\\\\D{3}\\\\d{2}"
+      symbols: BTC-\\d{2}\\D{3}\\d{2}
       monitor_period_secs: 60
       ban_period_secs: 300
       request_limit: 10
@@ -66,14 +73,17 @@ roq_deribit:
 roq_coinbase_pro:
   version: "{{ roq_version }}"
   name: "coinbase-pro"
+  logging:
+    verbosity: 0
   cpu_affinity:
     dispatcher: 2  # busy poll on cpu #2
     network: 6  # epoll on cpu #6
   collect:
-    size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
-  options: {}
-  logging:
-    verbosity: 0
+    file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
+  options:
+    reconnect_secs: 1
+    ping_freq_secs: 10
+    cancel_on_disconnect: true
   net:
     fix: "tcp+ssl://fix-public.sandbox.pro.coinbase.com:4198"
     ws: "wss://ws-feed-public.sandbox.pro.coinbase.com"
