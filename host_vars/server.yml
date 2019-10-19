@@ -65,6 +65,19 @@ roq_deribit:
       monitor_period_secs: 60
       ban_period_secs: 300
       request_limit: 10
+    example-1:
+      password: "secret"
+      symbols: ".*"
+    example-2:
+      password: "secret"
+      symbols: ".*"
+    example-3:
+      password: "secret"
+      accounts: "A1"
+      symbols: BTC-\\d{2}\\D{3}\\d{2}
+      monitor-period-secs: 60
+      ban-period-secs: 300
+      request-limit: 5
 
 ####################
 ### COINBASE PRO ###
@@ -108,3 +121,28 @@ roq_coinbase_pro:
       monitor_period_secs: 60
       ban_period_secs: 300
       request_limit: 10
+    example-1:
+      password: "secret"
+      symbols: ".*"
+    example-2:
+      password: "secret"
+      symbols: ".*"
+    example-3:
+      password: "secret"
+      accounts: "A1"
+      symbols: "BTC-.*"
+      monitor-period-secs: 60
+      ban-period-secs: 300
+      request-limit: 5
+
+###############
+### SAMPLES ###
+###############
+
+roq_samples:
+  version: "{{ roq_version }}"
+  name: "samples"
+  logging:
+    verbosity: 0
+  cpu_affinity:
+    dispatcher: 3  # busy poll on cpu #(3 + example index - 1)
