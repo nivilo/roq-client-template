@@ -32,8 +32,7 @@ roq_deribit:
   logging:
     verbosity: 0
   cpu_affinity:
-    dispatcher: 1  # busy poll on cpu #1
-    network: 6  # epoll on cpu #6
+    dispatcher: 1
   collect:
     file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
   options:
@@ -89,8 +88,7 @@ roq_coinbase_pro:
   logging:
     verbosity: 0
   cpu_affinity:
-    dispatcher: 2  # busy poll on cpu #2
-    network: 6  # epoll on cpu #6
+    dispatcher: 2
   collect:
     file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
   options:
@@ -145,4 +143,4 @@ roq_samples:
   logging:
     verbosity: 0
   cpu_affinity:
-    dispatcher: 3  # busy poll on cpu #(3 + example index - 1)
+    dispatcher: 3  # using cpu=#(3 + example index - 1)
