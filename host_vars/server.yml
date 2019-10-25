@@ -36,9 +36,10 @@ roq_deribit:
   collect:
     file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
   options:
-    reconnect_secs: 1
+    reconnect_secs: 10
     ping_freq_secs: 10
     cancel_on_disconnect: true
+    timer_freq_nsecs: 1000
   net:
     fix: "tcp://test.deribit.com:9881"
   symbols:
@@ -92,13 +93,15 @@ roq_coinbase_pro:
   collect:
     file_size: "{{ 128 * 1024 * 1024 }}"  # mmap'ed feed
   options:
-    reconnect_secs: 1
+    reconnect_secs: 10
     ping_freq_secs: 10
     cancel_on_disconnect: true
+    timer_freq_nsecs: 1000
   net:
     fix: "tcp+ssl://fix-public.sandbox.pro.coinbase.com:4198"
     ws: "wss://ws-feed-public.sandbox.pro.coinbase.com"
     rest: "https://api-public.sandbox.pro.coinbase.com"
+  symbols: ".*"
   accounts:
     "A1":
       login: "YOUR_COINBASE_PRO_LOGIN_GOES_HERE"
@@ -143,4 +146,4 @@ roq_samples:
   logging:
     verbosity: 0
   cpu_affinity:
-    dispatcher: 3  # using cpu=#(3 + example index - 1)
+    dispatcher: 3  # busy poll on cpu #(3 + example index - 1)
