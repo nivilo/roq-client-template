@@ -22,6 +22,15 @@ upgrade_system: true
 roq_version: "latest"
 roq_conda_channel: "unstable"
 
+################
+### INFLUXDB ###
+################
+
+roq_influxdb:
+  name: "influxdb"
+  logging:
+    verbosity: 0
+
 ###############
 ### DERIBIT ###
 ###############
@@ -33,13 +42,9 @@ roq_deribit:
     verbosity: 0
   cpu_affinity:
     dispatcher: 1
-  options:
-    reconnect_secs: 10
-    ping_freq_secs: 10
-    cancel_on_disconnect: true
-    timer_freq_nsecs: 1000
   net:
     fix: "tcp://test.deribit.com:9881"
+    ws: "wss://test.deribit.com/ws/api/v2"
   symbols:
     - ".*-PERPETUAL"
     - ".*-DERIBIT-INDEX"
@@ -88,11 +93,6 @@ roq_coinbase_pro:
     verbosity: 0
   cpu_affinity:
     dispatcher: 2
-  options:
-    reconnect_secs: 10
-    ping_freq_secs: 10
-    cancel_on_disconnect: true
-    timer_freq_nsecs: 1000
   net:
     fix: "tcp+ssl://fix-public.sandbox.pro.coinbase.com:4198"
     ws: "wss://ws-feed-public.sandbox.pro.coinbase.com"
