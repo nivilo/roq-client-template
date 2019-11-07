@@ -33,8 +33,6 @@ roq_deribit:
     verbosity: 0
   cpu_affinity:
     dispatcher: 1
-  event_log:
-    file_size: "{{ 128 * 1024 * 1024 }}"
   options:
     reconnect_secs: 10
     ping_freq_secs: 10
@@ -90,8 +88,6 @@ roq_coinbase_pro:
     verbosity: 0
   cpu_affinity:
     dispatcher: 2
-  event_log:
-    file_size: "{{ 128 * 1024 * 1024 }}"
   options:
     reconnect_secs: 10
     ping_freq_secs: 10
