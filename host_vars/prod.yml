@@ -43,8 +43,8 @@ roq_deribit:
   cpu_affinity:
     dispatcher: 1
   net:
-    fix: "tcp://deribit.com:9880"
-    ws: "wss://deribit.com/ws/api/v2"
+    fix: "tcp://www.deribit.com:9880"
+    ws: "wss://www.deribit.com/ws/api/v2"
   symbols:
     - ".*-PERPETUAL"
     - ".*-DERIBIT-INDEX"
