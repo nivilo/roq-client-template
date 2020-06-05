@@ -27,85 +27,33 @@ roq_conda_channel: "unstable"
 ################
 
 roq_influxdb:
-  name: "influxdb"
   logging:
     verbosity: 0
-
-###############
-### DERIBIT ###
-###############
-
-roq_deribit:
-  version: "{{ roq_version }}"
-  name: "deribit"
-  logging:
-    verbosity: 0
-  cpu_affinity:
-    dispatcher: 1
-  net:
-    fix: "tcp://test.deribit.com:9881"
-    ws: "wss://test.deribit.com/ws/api/v2"
-  symbols:
-    - ".*-PERPETUAL"
-    - ".*-DERIBIT-INDEX"
-    - .*-\\d{2}\\D{3}\\d{2}
-  accounts:
-    "A1":
-      login: "YOUR_DERIBIT_LOGIN_GOES_HERE"
-      secret: "YOUR_DERIBIT_SECRET_GOES_HERE"
-      symbols:
-        - "BTC-.*"
-        - "ETH-.*"
-      master: true
-  users:
-    test:
-      password: "1234"
-      symbols: ".*"
-    trader:
-      password: "secret"
-      accounts: "A1"
-      symbols: BTC-\\d{2}\\D{3}\\d{2}
-      monitor_period_secs: 60
-      ban_period_secs: 300
-      request_limit: 10
-    example-1:
-      password: "secret"
-      symbols: ".*"
-    example-2:
-      password: "secret"
-      symbols: ".*"
-    example-3:
-      password: "secret"
-      accounts: "A1"
-      symbols: BTC-\\d{2}\\D{3}\\d{2}
-      monitor-period-secs: 60
-      ban-period-secs: 300
-      request-limit: 5
 
 ####################
 ### COINBASE PRO ###
 ####################
 
 roq_coinbase_pro:
-  version: "{{ roq_version }}"
-  name: "coinbase-pro"
   logging:
     verbosity: 0
-  cpu_affinity:
-    dispatcher: 2
-  net:
-    fix: "tcp+ssl://fix-public.sandbox.pro.coinbase.com:4198"
-    ws: "wss://ws-feed-public.sandbox.pro.coinbase.com"
-    rest: "https://api-public.sandbox.pro.coinbase.com"
-  symbols: ".*"
+  options:
+    name: "coinbase-pro"
+    rest_uri: "https://api-public.sandbox.pro.coinbase.com"
+    ws_uri: "wss://ws-feed-public.sandbox.pro.coinbase.com"
+    fix_uri: "tcp+ssl://fix-public.sandbox.pro.coinbase.com:4198"
+    loop_cpu_affinity: 1
+    loop_sleep_nsecs: 500
+    loop_timer_freq_nsecs: 2500
+  symbols:
+    - ".*"
   accounts:
     "A1":
       login: "YOUR_COINBASE_PRO_LOGIN_GOES_HERE"
       password: "YOUR_COINBASE_PRO_PASSWORD_GOES_HERE"
       secret: "YOUR_COINBASE_PRO_SECRET_GOES_HERE"
       symbols:
-        - "BTC-.*"
-        - "ETH-.*"
+        - ".*"
       master: true
   users:
     test:
@@ -133,13 +81,49 @@ roq_coinbase_pro:
       request-limit: 5
 
 ###############
-### SAMPLES ###
+### DERIBIT ###
 ###############
 
-roq_samples:
-  version: "{{ roq_version }}"
-  name: "samples"
+roq_deribit:
   logging:
     verbosity: 0
-  cpu_affinity:
-    dispatcher: 3  # busy poll on cpu #(3 + example index - 1)
+  options:
+    name: "deribit"
+    ws_uri: "wss://test.deribit.com/ws/api/v2"
+    fix_uri: "tcp://test.deribit.com:9881"
+    loop_cpu_affinity: 2
+    loop_sleep_nsecs: 500
+    loop_timer_freq_nsecs: 2500
+  symbols:
+    - ".*"
+  accounts:
+    "A1":
+      login: "YOUR_DERIBIT_LOGIN_GOES_HERE"
+      secret: "YOUR_DERIBIT_SECRET_GOES_HERE"
+      symbols:
+        - "*"
+      master: true
+  users:
+    test:
+      password: "1234"
+      symbols: ".*"
+    trader:
+      password: "secret"
+      accounts: "A1"
+      symbols: BTC-\\d{2}\\D{3}\\d{2}
+      monitor_period_secs: 60
+      ban_period_secs: 300
+      request_limit: 10
+    example-1:
+      password: "secret"
+      symbols: ".*"
+    example-2:
+      password: "secret"
+      symbols: ".*"
+    example-3:
+      password: "secret"
+      accounts: "A1"
+      symbols: BTC-\\d{2}\\D{3}\\d{2}
+      monitor-period-secs: 60
+      ban-period-secs: 300
+      request-limit: 5
